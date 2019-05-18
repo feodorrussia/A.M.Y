@@ -2,17 +2,20 @@ from constants import *
 
 
 class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(120), unique=False, nullable=False)
     status = db.Column(db.Integer)
 
 
 class Friend(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
     user = db.Column(db.String(80), unique=True, nullable=False)
     friend = db.Column(db.String(120), unique=False, nullable=False)
 
 
 class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     message = db.Column(db.String(1000), unique=False, nullable=False)
     recipient = db.Column(db.String(80), unique=False, nullable=False)
@@ -21,7 +24,7 @@ class Message(db.Model):
 
 
 class Group(db.Model):
-    id = db.Column(db.Integer, unique=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=False, nullable=False)
     users = db.Column(db.String(1000), unique=False, nullable=False)
 
