@@ -14,5 +14,6 @@ def handle_dialog(request, response, user_storage, database):
 
     buttons, user_storage = get_suggests(user_storage)
     return message_error(response, user_storage,
-                         ['Конфуз;) Я ещё в разработке', 'Ой, сейчас исправлю)'
-                          ])
+                         ['Конфуз;) Я ещё в разработке', 'Ой, сейчас исправлю)',
+                          'Ой, неполадочка)', 'Прости, что ты это увидел:| Попробуй ещё раз',
+                          'Прости, я ещё не всё знаю. Что ты там говорил?'])
