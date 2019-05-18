@@ -18,10 +18,9 @@ from main_function import *
 from flask import Flask, request
 
 # Импортируем базу данных
-import database_module
+import database_session
 
-# Инициализируем "приложение" для самого веб-сервиса
-app = Flask(__name__)
+from constants import *
 
 # Хранилище данных о сессиях.
 session_storage = {}
@@ -40,7 +39,7 @@ def main():
     # Функция получает тело запроса и возвращает ответ.
     alice_request = AliceRequest(request.json)
     logging.info('Request: {}'.format(alice_request))
-    database = database_module.DatabaseManager()
+    database = database_session.Session()
     alice_response = AliceResponse(alice_request)
 
     user_id = alice_request.user_id
