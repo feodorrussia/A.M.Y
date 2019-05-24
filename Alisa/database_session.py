@@ -22,7 +22,7 @@ class Session:
         try:
             cursor.execute(
                 '''INSERT INTO sessions  VALUES(:user_id, :user_name, :status_action, 0)''',
-                {'user_id': ''.join([str(x) for x in user_id]), 'user_name': '', 'status_action': "login"})
+                {'user_id': ''.join([str(x) for x in user_id]), 'user_name': '', 'status_action': "out"})
         except sqlite3.DatabaseError as error:
             print('Error: ', error, '1')
             cursor.close()

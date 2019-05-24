@@ -12,6 +12,10 @@ def handle_dialog(request, response, user_storage, database):
     if request.user_id not in database.get_session(all=True):
         database.add_session(request.user_id)
 
+    if database.get_session(request.user_id, 'status_action')[0] == 'out':
+        user_storage = {"suggests": ['Помощь']}
+        return message_return(response, user_storage, 'Привет!')
+
     buttons, user_storage = get_suggests(user_storage)
     return message_error(response, user_storage,
                          ['Конфуз;) Я ещё в разработке', 'Ой, сейчас исправлю)',
