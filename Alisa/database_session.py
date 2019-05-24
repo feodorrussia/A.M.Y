@@ -10,7 +10,8 @@ class Session:
         cursor.execute('PRAGMA foreign_key=1')
         cursor.execute('''CREATE TABLE IF NOT EXISTS sessions
                             (user_id TEXT,
-                            user_name VARCHAR(50),
+                            user_name VARCHAR(80),
+                            recipient_name VARCHAR(80),
                             status_action VARCHAR(50))''')
         cursor.close()
 
@@ -21,8 +22,8 @@ class Session:
         cursor = self.connection.cursor()
         try:
             cursor.execute(
-                '''INSERT INTO sessions  VALUES(:user_id, :user_name, :status_action, 0)''',
-                {'user_id': ''.join([str(x) for x in user_id]), 'user_name': '', 'status_action': "out"})
+                '''INSERT INTO sessions  VALUES(:user_id, :user_name, :recipient_name, :status_action)''',
+                {'user_id': ''.join([str(x) for x in user_id]), 'user_name': "", 'recipient_name': "", 'status_action': "login"})
         except sqlite3.DatabaseError as error:
             print('Error: ', error, '1')
             cursor.close()
