@@ -20,8 +20,8 @@ def handle_dialog(request, response, user_storage, database):
             user = User.query.filter_by(username=user_name).first()
             if user.password == password:  # Проверка на правильность пароля
                 user_storage = {'suggests': ['Друзья', 'Помощь', 'Настройки']}
-                database.uppdate(user_name, 'user_name')
-                database.uppdate('first')
+                database.update(user_name, 'user_name')
+                database.update('first')
                 return message_return(response, user_storage, 'Добро пожаловать!' + new_message())
             else:  # Информирование об ошибке
                 return message_return(response, user_storage,
@@ -31,8 +31,8 @@ def handle_dialog(request, response, user_storage, database):
             user = User(username = user_name, password=password, status=1)
             db.session.add(user)
             db.session.commit()
-            database.uppdate(user_name, 'user_name')
-            database.uppdate('first')
+            database.update(user_name, 'user_name')
+            database.update('first')
             return message_return(response, user_storage, 'Добро пожаловать!')
 
     if database.get_session(request.user_id, 'status_action')[0] == 'login':
