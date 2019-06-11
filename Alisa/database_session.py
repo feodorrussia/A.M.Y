@@ -23,7 +23,7 @@ class Session:
         try:
             cursor.execute(
                 '''INSERT INTO sessions  VALUES(:user_id, :user_name, :recipient_name, :status_action)''',
-                {'user_id': ''.join([str(x) for x in user_id]), 'user_name': "", 'recipient_name': "", 'status_action': "out"})
+                {'user_id': ''.join([str(x) for x in user_id]), 'user_name': "", 'recipient_name': "", 'status_action': "login"})
         except sqlite3.DatabaseError as error:
             print('Error: ', error, '1')
             cursor.close()
@@ -32,7 +32,7 @@ class Session:
             cursor.close()
             return True
 
-    def update_status_system(self, new, user_id, group='status_action'):
+    def update(self, new, user_id, group='status_action'):
         cursor = self.connection.cursor()
         try:
             cursor.execute(f"""UPDATE sessions

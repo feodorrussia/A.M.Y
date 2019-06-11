@@ -54,3 +54,7 @@ def message_return(response, user_storage, message,  tts=None):  # ща буде
     buttons, user_storage = get_suggests(user_storage)
     response.set_buttons(buttons)
     return response, user_storage
+
+#Эта функция будет находить непрочитанные сообщения пользователя user и возвращать соответствующую строку
+def new_message():
+    return ''
