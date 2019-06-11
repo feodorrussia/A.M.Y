@@ -1,2 +1,2 @@
-# MAY
-Messager Alice Yandex (девочка из фильма Тоторо))
+# A.M.Y
+Alice's Messager Yandex
