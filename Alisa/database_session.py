@@ -32,7 +32,7 @@ class Session:
             cursor.close()
             return True
 
-    def update(self, new, user_id, group='status_action'):
+    def update(self, user_id, new, group='status_action'):
         cursor = self.connection.cursor()
         try:
             cursor.execute(f"""UPDATE sessions
