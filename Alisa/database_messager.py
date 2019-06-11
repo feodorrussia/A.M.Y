@@ -8,6 +8,13 @@ class User(db.Model):
     status = db.Column(db.Integer)
 
 
+class Settings(db.Model):
+    id = db.Column(db.Integer, primary_key=True)  # id такой же как и у соответствующего пользователя
+    bfp = db.Column(db.String(1000), unique=False, nullable=False)  # кнопки на главной странице(buttons on first page)
+    ar_uid = db.Column(db.Integer)  # 1/0 автоматическое распознавание пользователя по id(automatic recognition of the user's id)*
+    voice = db.Column(db.Integer)  # 1/0(будет ли Алиса озвучивать ответы)
+
+
 class Friend(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user = db.Column(db.String(80), unique=True, nullable=False)

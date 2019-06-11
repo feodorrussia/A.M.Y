@@ -6,3 +6,5 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///sqldatabase.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 db = SQLAlchemy(app)
+
+bfp_i = ['Друзья', 'Помощь', 'Настройки', 'Выйти']

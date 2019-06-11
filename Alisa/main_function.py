@@ -29,7 +29,7 @@ def handle_dialog(request, response, user_storage, database):
         if User.query.filter_by(username=user_name).all():  # Проверка на нового пользователя
             user = User.query.filter_by(username=user_name).first()
             if user.password == password:  # Проверка на правильность пароля
-                user_storage = {'suggests': ['Друзья', 'Помощь', 'Настройки', 'Выйти']}
+                user_storage = {'suggests': Settings.query.filter_by(id=user.id).first().bfp.split(';_;')}
                 database.update(request.user_id, user_name, 'user_name')
                 database.update(request.user_id, 'first')
                 return message_return(response, user_storage, 'Добро пожаловать!' + new_message())
@@ -37,9 +37,11 @@ def handle_dialog(request, response, user_storage, database):
                 return message_return(response, user_storage,
                                       'Ошибка!) Попробуй ещё раз, но помни, логин должен быть индивидуальным!')
         else:  # Создание нового пользователя
-            user_storage = {'suggests': ['Друзья', 'Помощь', 'Настройки']}
+            user_storage = {'suggests': bfp_i}
             user = User(username=user_name, password=password, status=1)
+            settings = Settings(bfp=';_;'.join(bfp_i), ar_uid=0, voice=1)  # Настройки по умолчанию
             db.session.add(user)
+            db.session.add(settings)
             db.session.commit()
             database.update(request.user_id, user_name, 'user_name')
             database.update(request.user_id, 'first')
