@@ -13,13 +13,23 @@ def handle_dialog(request, response, user_storage, database):
         database.add_session(request.user_id)
         print(database.get_session(request.user_id))
 
+    if input_message in ['выйти', 'выйди']:
+        user_storage = {"suggests": ['Помощь', 'Войти']}
+        user_name = database.get_session(request.user_id, 'user_name')
+        user = User.query.filter_by(username=user_name).first()
+        user.status = 0
+        db.session.commit()
+        database.update(request.user_id, 'login')
+        return message_return(response, user_storage,
+                              'Пока! До новых встреч;)')
+
     if database.get_session(request.user_id, 'status_action')[0] == 'login' and len(
             input_message.split()) == 2:
         user_name, password = request.command.split()
         if User.query.filter_by(username=user_name).all():  # Проверка на нового пользователя
             user = User.query.filter_by(username=user_name).first()
             if user.password == password:  # Проверка на правильность пароля
-                user_storage = {'suggests': ['Друзья', 'Помощь', 'Настройки']}
+                user_storage = {'suggests': ['Друзья', 'Помощь', 'Настройки', 'Выйти']}
                 database.update(request.user_id, user_name, 'user_name')
                 database.update(request.user_id, 'first')
                 return message_return(response, user_storage, 'Добро пожаловать!' + new_message())
@@ -35,7 +45,7 @@ def handle_dialog(request, response, user_storage, database):
             database.update(request.user_id, 'first')
             return message_return(response, user_storage, 'Добро пожаловать!')
 
-    if database.get_session(request.user_id, 'status_action')[0] == 'login':
+    if database.get_session(request.user_id, 'status_action')[0] == 'login' or input_message in ['войти']:
         user_storage = {"suggests": ['Помощь']}
         return message_return(response, user_storage,
                               'Привет! Чтобы войти в систему напиши свой индивидуальный логин и пароль через пробел.')
