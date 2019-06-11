@@ -15,7 +15,7 @@ def handle_dialog(request, response, user_storage, database):
 
     if input_message in ['выйти', 'выйди']:
         user_storage = {"suggests": ['Помощь', 'Войти']}
-        user_name = database.get_session(request.user_id, 'user_name')
+        user_name = database.get_session(request.user_id, 'user_name')[0]
         user = User.query.filter_by(username=user_name).first()
         user.status = 0
         db.session.commit()
