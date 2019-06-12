@@ -21,7 +21,7 @@ def handle_dialog(request, response, user_storage, database):
             if user.password == password:  # Проверка на правильность пароля
                 user_storage = {'suggests': Settings.query.filter_by(id=user.id).first().bfp.split(';_;')}
                 database.update(request.user_id, user_name, 'user_name')
-                database.update(request.user_id, 'first')
+                database.update(request.user_id, 'working')
                 return message_return(response, user_storage, 'Добро пожаловать!' + search_new_message())
             else:  # Информирование об ошибке
                 return message_return(response, user_storage,
@@ -34,7 +34,7 @@ def handle_dialog(request, response, user_storage, database):
             db.session.add(settings)
             db.session.commit()
             database.update(request.user_id, user_name, 'user_name')
-            database.update(request.user_id, 'first')
+            database.update(request.user_id, 'working')
             return message_return(response, user_storage, 'Добро пожаловать!')
 
     if database.get_session(request.user_id, 'status_action')[0] == 'login' or input_message in ['войти']:
@@ -61,6 +61,7 @@ def handle_dialog(request, response, user_storage, database):
             user = User.query.filter_by(username=user_name).first()
             user_storage = {
                 'suggests': Settings.query.filter_by(id=user.id).first().bfp.split(';_;')}
+        database.update(request.user_id, 'working', 'status_action')
         return message_return(response, user_storage, "Прошу)", "Прошу")
 
     if input_message in hwc:
