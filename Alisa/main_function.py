@@ -277,12 +277,12 @@ def handle_dialog(request, response, user_storage, database):
             user = User.query.filter_by(username=recipient).first()
             output_message = f'{user.username}{" (в сети)" if user.status == 1 else " (не в сети)"}'
         else:
-            message = Message(username=user[1], message=request.command, recipient=user[2],
+            message = Message(username=user, message=request.command, recipient=recipient,
                               status=1)
             db.session.add(message)
             db.session.commit()
             user = User.query.filter_by(username=recipient).first()
-            output_message = f'{user.username}({" (в сети)" if user.status == 1 else " (не в сети)"})'
+            output_message = f'{user.username}{" (в сети)" if user.status == 1 else " (не в сети)"}'
         if new_message:
             output_message = 'Новые соообщения:\n' + '\n'.join([x.message for x in new_message])
         user_storage = {'suggests': cb}
