@@ -93,7 +93,7 @@ def handle_dialog(request, response, user_storage, database):
             database.get_session(request.user_id, 'status_action')[0] == 'searching_error':
         output_message = "Хорошо.\nСкажите мне его имя его учётной записи(логин в системе)"
         user_storage = {'suggests': ['Главная', 'Отмена']}
-        database.update('searching_user', request.user_id, 'status_action')
+        database.update(request.user_id, 'searching_user', 'status_action')
         return message_return(response, user_storage, output_message)
 
     if database.get_session(request.user_id, 'status_action')[
