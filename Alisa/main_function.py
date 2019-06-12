@@ -165,7 +165,7 @@ def handle_dialog(request, response, user_storage, database):
         output_message = 'Сообщение отправлено! Перейти к диалогу?'
         user_storage = {
             'suggests': ['Да', 'Нет']}
-        database.update('dialog?', request.user_id, 'status_action')
+        database.update(request.user_id, 'dialog?', 'status_action')
         return message_return(response, user_storage, output_message)
 
     if database.get_session(request.user_id, 'status_action')[0] == 'dialog?':
