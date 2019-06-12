@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d391d987-c652-49d3-8c33-1937400f2c05" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/little_fuctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/little_fuctions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_function.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_function.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,8 +24,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main_function.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-6192">
-              <caret line="24" column="92" selection-start-line="24" selection-start-column="92" selection-end-line="24" selection-end-column="92" />
+            <state relative-caret-position="1998">
+              <caret line="224" selection-start-line="224" selection-end-line="224" />
               <folding>
                 <element signature="e#16#55#0" expanded="true" />
               </folding>
@@ -113,8 +112,8 @@
         <option value="$PROJECT_DIR$/database_session.py" />
         <option value="$PROJECT_DIR$/database_messager.py" />
         <option value="$PROJECT_DIR$/constants.py" />
-        <option value="$PROJECT_DIR$/main_function.py" />
         <option value="$PROJECT_DIR$/little_fuctions.py" />
+        <option value="$PROJECT_DIR$/main_function.py" />
       </list>
     </option>
   </component>
@@ -343,8 +342,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main_function.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6192">
-          <caret line="24" column="92" selection-start-line="24" selection-start-column="92" selection-end-line="24" selection-end-column="92" />
+        <state relative-caret-position="1998">
+          <caret line="224" selection-start-line="224" selection-end-line="224" />
           <folding>
             <element signature="e#16#55#0" expanded="true" />
           </folding>
