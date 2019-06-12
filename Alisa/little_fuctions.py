@@ -63,5 +63,5 @@ def message_return(response, user_storage, message,  tts=None, voice=True):  # �
     return response, user_storage
 
 #Эта функция будет находить непрочитанные сообщения пользователя user и возвращать соответствующую строку
-def new_message():
+def search_new_message():
     return '1'

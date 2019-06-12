@@ -22,7 +22,7 @@ def handle_dialog(request, response, user_storage, database):
                 user_storage = {'suggests': Settings.query.filter_by(id=user.id).first().bfp.split(';_;')}
                 database.update(request.user_id, user_name, 'user_name')
                 database.update(request.user_id, 'first')
-                return message_return(response, user_storage, 'Добро пожаловать!' + new_message())
+                return message_return(response, user_storage, 'Добро пожаловать!' + search_new_message())
             else:  # Информирование об ошибке
                 return message_return(response, user_storage,
                                       'Ошибка!) Попробуй ещё раз, но помни, логин должен быть индивидуальным!')
@@ -256,14 +256,14 @@ def handle_dialog(request, response, user_storage, database):
         recipient = database.get_session(request.user_id, 'recipient_name')[0]
         new_message = Message.query.filter_by(username=recipient).filter_by(recipient=user).filter_by(status=1).all()
         if input_message in uwc:
-            user = User.query.filter_by(username=user).first()
-            output_message = f'{user.username}({" (в сети)" if user.status == 1 else " (не в сети)"})'
+            user = User.query.filter_by(username=recipient).first()
+            output_message = f'{user.username}{" (в сети)" if user.status == 1 else " (не в сети)"}'
         else:
             message = Message(username=user[1], message=request.command, recipient=user[2],
                               status=1)
             db.session.add(message)
             db.session.commit()
-            user = User.query.filter_by(username=user).first()
+            user = User.query.filter_by(username=recipient).first()
             output_message = f'{user.username}({" (в сети)" if user.status == 1 else " (не в сети)"})'
         if new_message:
             output_message = 'Новые соообщения:\n' + '\n'.join([x.message for x in new_message])
