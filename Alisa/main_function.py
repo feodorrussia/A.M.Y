@@ -42,7 +42,7 @@ def handle_dialog(request, response, user_storage, database):
         return message_return(response, user_storage,
                               'Привет! Чтобы войти в систему напиши свой индивидуальный логин и пароль через пробел.')
 
-    if input_message in ewc:
+    if input_message in ewc or request.is_new_session:
         # статистика
         user_storage = {"suggests": bop}
         user_name = database.get_session(request.user_id, 'user_name')[0]
@@ -140,7 +140,7 @@ def handle_dialog(request, response, user_storage, database):
                 0]} уже есть у Вас в друзьях! Написать ему?'''
             user_storage = {'suggests': ['Да', 'Нет']}
         else:
-            print('!!!!!!!      lll'user_name)
+            print('!!!!!!!      lll',user_name)
             friendship = Friend(user=user_name[1], friend=user_name[2], nickname=input_message)
             db.session.add(friendship)
             db.session.commit()
