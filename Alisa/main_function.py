@@ -231,6 +231,8 @@ def handle_dialog(request, response, user_storage, database):
             user = database.get_session(request.user_id, 'user_name')[0]
             recipient = database.get_session(request.user_id, 'recipient_name')[0]
             dialog = Message.query.filter_by(username=user).filter_by(recipient=recipient).all()
+            dialog += Message.query.filter_by(username=recipient).filter_by(recipient=user).all()
+            dialog = sorted(dialog, key=lambda x: x.id)
             print('    dialog:!!!   ', dialog)
             output_message = ''
             if dialog:
