@@ -115,7 +115,7 @@ def handle_dialog(request, response, user_storage, database):
         return message_return(response, user_storage, output_message)
 
     if database.get_session(request.user_id, 'status_action')[0] == 'adding_friendship?':
-        if input_message == ywc:
+        if input_message in ywc:
             output_message = 'Хорошо, рада была помочь Вам!'
             user_storage = {'suggests': ['Помощь', 'Главная']}
             database.update_status_system(request.user_id, 'adding_friendship', 'status_action')
