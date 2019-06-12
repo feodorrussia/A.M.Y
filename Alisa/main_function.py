@@ -242,6 +242,8 @@ def handle_dialog(request, response, user_storage, database):
                         output_message += 'Вы: ' + message.message + '\n'
                     else:
                         output_message += message.username + ': ' + message.message + '\n'
+                    message.status = 0
+                db.session.commit()
             else:
                 output_message = 'Ваш диалог пуст.'
             user_storage = {
@@ -287,6 +289,9 @@ def handle_dialog(request, response, user_storage, database):
             output_message = f'{user.username}{" (в сети)" if user.status == 1 else " (не в сети)"}'
         if new_message:
             output_message = 'Новые соообщения:\n' + '\n'.join([x.message for x in new_message])
+            for i in new_message:
+                i.status = 0
+            db.session.commit()
         user_storage = {'suggests': cb}
         return message_return(response, user_storage, output_message)
 
