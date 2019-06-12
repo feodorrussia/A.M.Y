@@ -257,7 +257,7 @@ def handle_dialog(request, response, user_storage, database):
         return message_return(response, user_storage, output_message)
 
     if database.get_session(request.user_id, 'status_action')[0] == 'connect_dialog':
-        if User.query.filter_by(username=request.command.split(' ')[1]).first():
+        if User.query.filter_by(username=request.command).first():
             output_message = 'Хорошо, теперь Вы можете сразу видеть полученные сообщения и незамедлительно на них отвечать'
             user_storage = {'suggests': cb}
         else:
