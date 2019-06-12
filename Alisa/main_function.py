@@ -202,10 +202,15 @@ def handle_dialog(request, response, user_storage, database):
 
     if database.get_session(request.user_id, 'status_action')[0] == 'connect_recipient':
         if input_message != 'отмена':
-            output_message = 'Я готова, пиши сообщение!'
-            user_storage = {'suggests': ['Отмена', 'Друзья', 'Группы', 'Найти', 'Помощь', 'Главная']}
-            database.update(request.user_id, 'sending_letter', 'status_action')
-            database.update(request.user_id, request.command, 'recipient_name')
+            if User.query.filter_by(username=request.command).first():
+                output_message = 'Я готова, пиши сообщение!'
+                user_storage = {'suggests': ['Отмена', 'Друзья', 'Группы', 'Найти', 'Помощь', 'Главная']}
+                database.update(request.user_id, 'sending_letter', 'status_action')
+                database.update(request.user_id, request.command, 'recipient_name')
+            else:
+                output_message = 'Я не нашла такого пользователя('
+                user_storage = {
+                    'suggests': ['Отмена', 'Друзья', 'Группы', 'Найти', 'Помощь', 'Главная']}
         else:
             output_message = 'Хорошо, рада была помочь!'
             user_storage = {'suggests': ['Друзья', 'Группы', 'Найти', 'Помощь', 'Главная']}
@@ -219,7 +224,7 @@ def handle_dialog(request, response, user_storage, database):
             user_storage = {
                 'suggests': ['Отмена', 'Друзья', 'Группы', 'Найти', 'Помощь', 'Главная']}
             database.update(request.user_id, 'sending_letter', 'status_action')
-            database.update(request.user_id, request.command.split(' ')[1],
+            database.update(request.user_id, request.command.split(' ')[-1],
                                           'recipient_name')
         else:
             output_message = 'Я не нашла такого пользователя('
