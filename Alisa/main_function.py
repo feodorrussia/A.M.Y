@@ -140,7 +140,7 @@ def handle_dialog(request, response, user_storage, database):
                 0]} уже есть у Вас в друзьях! Написать ему?'''
             user_storage = {'suggests': ['Да', 'Нет']}
         else:
-            print(user_name)
+            print('!!!!!!!      lll'user_name)
             friendship = Friend(user=user_name[1], friend=user_name[2], nickname=input_message)
             db.session.add(friendship)
             db.session.commit()
