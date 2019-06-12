@@ -131,7 +131,7 @@ def handle_dialog(request, response, user_storage, database):
         return message_return(response, user_storage, output_message)
 
     if database.get_session(request.user_id, 'status_action')[0] == 'adding_friendship':
-        user_name = database.get_session(request.user_id)[0]
+        user_name = database.get_session(request.user_id)
         if input_message in nwc:
             input_message = ''
         if Friend.query.filter_by(user=user_name[1]).filter_by(friend=user_name[2]).all():
