@@ -27,7 +27,6 @@ class Message(db.Model):
     username = db.Column(db.String(80), unique=False, nullable=False)
     message = db.Column(db.String(1000), unique=False, nullable=False)
     recipient = db.Column(db.String(80), unique=False, nullable=False)
-    is_group_message = db.Column(db.Boolean)
     status = db.Column(db.Integer)
 
 
