@@ -242,7 +242,7 @@ def handle_dialog(request, response, user_storage, database):
                     else:
                         output_message += message.username + ': ' + message.message + '\n'
             else:
-                output_message = 'Упс, что-то пошло не так)'
+                output_message = 'Ваш диалог пуст.'
             user_storage = {
                 'suggests': cb}
         else:
