@@ -251,7 +251,7 @@ def handle_dialog(request, response, user_storage, database):
         database.update(request.user_id, 'chatting', 'status_action')
         return message_return(response, user_storage, output_message)
 
-    if database.get_session(request.user_id, 'status_action')[0] == 'connect_dialog':
+    if database.get_session(request.user_id, 'status_action')[0] == 'chatting':
         user = database.get_session(request.user_id, 'user_name')[0]
         recipient = database.get_session(request.user_id, 'recipient_name')[0]
         new_message = Message.query.filter_by(username=user).filter_by(recipient=recipient).filter_by(status=1).all()
