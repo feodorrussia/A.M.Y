@@ -250,7 +250,7 @@ def handle_dialog(request, response, user_storage, database):
                              'Главная']}
         return message_return(response, user_storage, output_message)
 
-    if input_message == 'перейти к лиалогу':
+    if input_message == 'перейти к диалогу':
         output_message = 'Хорошо, скажите Ваш диалог с кем Вам показать?'
         user_storage = {'suggests': ['Друзья', 'Группы', 'Найти', 'Помощь', 'Главная']}
         database.update(request.user_id, 'connect_dialog', 'status_action')
