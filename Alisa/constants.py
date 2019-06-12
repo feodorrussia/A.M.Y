@@ -7,4 +7,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
 db = SQLAlchemy(app)
 
-bfp_i = ['Друзья', 'Помощь', 'Настройки', 'Выйти']
+bfp_i = ['Друзья', 'Помощь', 'Настройки', 'Выйти']  # кнопки на главной странице(buttons on first page)
+bop = ['Помощь', 'Войти']  # кнопки на начальной странице(buttons on out page)
+btc = ['Друзья', 'Помощь', 'Найти друга', 'Написать другу', 'Настройки', 'Выйти']  # все кнопки
+hwc = ['помощь']
+ewc = ['выйти', 'выйди']
+

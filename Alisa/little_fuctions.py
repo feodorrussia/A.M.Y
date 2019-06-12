@@ -31,26 +31,33 @@ def get_suggests(user_storage):
     return suggests, user_storage
 
 
-def message_error(response, user_storage, answer,  tts=None):
+def message_error(response, user_storage, answer,  tts=None, voice=True):
     message = random.choice(answer)
     response.set_text(message)
-    if not tts:
-        response.set_tts(message + "Доступные команды: {}.".format(" ,".join(user_storage['suggests'])))
+    if voice:
+        if not tts:
+            response.set_tts(
+                message + "Доступные команды: {}.".format(" ,".join(user_storage['suggests'])))
+        else:
+            response.set_tts(
+                tts + "Доступные команды: {}.".format(" ,".join(user_storage['suggests'])))
     else:
-        response.set_tts(
-            tts + "Доступные команды: {}.".format(" ,".join(user_storage['suggests'])))
+        response.set_tts(' ')
     buttons, user_storage = get_suggests(user_storage)
     response.set_buttons(buttons)
     return response, user_storage
 
 
 # Ну вот эта функция всем функциям функция, ага. Замена постоянному формированию ответа, ага, экономит 4 строчки!!
-def message_return(response, user_storage, message,  tts=None):  # ща будет магия
+def message_return(response, user_storage, message,  tts=None, voice=True):  # ща будет магия
     response.set_text(message)
-    if not tts:
-        response.set_tts(message)
+    if voice:
+        if not tts:
+            response.set_tts(message)
+        else:
+            response.set_tts(tts)
     else:
-        response.set_tts(tts)
+        response.set_tts(' ')
     buttons, user_storage = get_suggests(user_storage)
     response.set_buttons(buttons)
     return response, user_storage
