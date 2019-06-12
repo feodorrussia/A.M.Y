@@ -201,8 +201,8 @@ def handle_dialog(request, response, user_storage, database):
             output_message = 'Я готова, пишите сообщение!'
             user_storage = {
                 'suggests': ['Отмена', 'Друзья', 'Группы', 'Найти', 'Помощь', 'Главная']}
-            database.update_status_system(request.user_id, 'sending_letter', 'status_action')
-            database.update_status_system(request.user_id, request.command.split(' ')[1],
+            database.update(request.user_id, 'sending_letter', 'status_action')
+            database.update(request.user_id, request.command.split(' ')[1],
                                           'recipient_name')
         else:
             output_message = 'Я не нашла такого пользователя('
@@ -254,10 +254,17 @@ def handle_dialog(request, response, user_storage, database):
     if database.get_session(request.user_id, 'status_action')[0] == 'chatting':
         user = database.get_session(request.user_id, 'user_name')[0]
         recipient = database.get_session(request.user_id, 'recipient_name')[0]
-        new_message = Message.query.filter_by(username=user).filter_by(recipient=recipient).filter_by(status=1).all()
+        new_message = Message.query.filter_by(username=recipient).filter_by(recipient=user).filter_by(status=1).all()
         if new_message:
             output_message = 'Новые соообщения:\n' + '\n'.join([x.message for x in new_message])
+        if input_message in uwc:
+            user = User.query.filter_by(user_name=user).first()
+            output_message = f'{user.username}({" (в сети)" if user.status == 1 else " (не в сети)"})'
         else:
+            message = Message(username=user[1], message=request.command, recipient=user[2],
+                              status=1)
+            db.session.add(message)
+            db.session.commit()
             user = User.query.filter_by(user_name=user).first()
             output_message = f'{user.username}({" (в сети)" if user.status == 1 else " (не в сети)"})'
         user_storage = {'suggests': cb}
