@@ -167,7 +167,7 @@ def handle_dialog(request, response, user_storage, database):
             database.update(request.user_id, 'sending_letter', 'status_action')
         else:
             output_message = 'Хорошо, рада была помочь!'
-            user_storage = {'suggests': ['Друзья', 'Группы', 'Найти', 'Помощь', 'Главная']}
+            user_storage = {'suggests': bc}
             database.update(request.user_id, 'working', 'status_action')
         return message_return(response, user_storage, output_message)
 
@@ -185,7 +185,7 @@ def handle_dialog(request, response, user_storage, database):
             database.update(request.user_id, 'dialog?', 'status_action')
         else:
             output_message = 'Хорошо, рада была помочь!'
-            user_storage = {'suggests': ['Друзья', 'Группы', 'Найти', 'Помощь', 'Главная']}
+            user_storage = {'suggests': bc}
             database.update(request.user_id, 'working', 'status_action')
         return message_return(response, user_storage, output_message)
 
@@ -197,14 +197,14 @@ def handle_dialog(request, response, user_storage, database):
             database.update(request.user_id, 'chatting', 'status_action')
         else:
             output_message = 'Хорошо, рада была помочь Вам!'
-            user_storage = {'suggests': ['Друзья', 'Группы', 'Найти', 'Помощь', 'Главная']}
+            user_storage = {'suggests': bc}
             database.update(request.user_id, 'working', 'status_action')
         return message_return(response, user_storage, output_message)
 
     if input_message == 'написать сообщение' and \
             database.get_session(request.user_id, 'status_action')[0] == 'working':
         output_message = 'Хорошо, скажи кому мне отправить сообщение'
-        user_storage = {'suggests': ['Друзья', 'Группы', 'Найти', 'Помощь', 'Главная']}
+        user_storage = {'suggests': bc}
         database.update(request.user_id, 'connect_recipient', 'status_action')
         return message_return(response, user_storage, output_message)
 
@@ -221,7 +221,7 @@ def handle_dialog(request, response, user_storage, database):
                     'suggests': ['Отмена', 'Друзья', 'Группы', 'Найти', 'Помощь', 'Главная']}
         else:
             output_message = 'Хорошо, рада была помочь!'
-            user_storage = {'suggests': ['Друзья', 'Группы', 'Найти', 'Помощь', 'Главная']}
+            user_storage = {'suggests': bc}
             database.update(request.user_id, 'working', 'status_action')
         return message_return(response, user_storage, output_message)
 
@@ -230,7 +230,7 @@ def handle_dialog(request, response, user_storage, database):
         if User.query.filter_by(username=request.command.split(' ')[-1]).first():
             output_message = 'Я готова, пиши сообщение!'
             user_storage = {
-                'suggests': ['Отмена', 'Друзья', 'Группы', 'Найти', 'Помощь', 'Главная']}
+                'suggests': bc}
             database.update(request.user_id, 'sending_letter', 'status_action')
             database.update(request.user_id, request.command.split(' ')[-1],
                                           'recipient_name')
@@ -270,7 +270,7 @@ def handle_dialog(request, response, user_storage, database):
 
     if input_message == 'перейти к диалогу':
         output_message = 'Хорошо, только скажи с кем?'
-        user_storage = {'suggests': ['Друзья', 'Группы', 'Найти', 'Помощь', 'Главная']}
+        user_storage = {'suggests': bc}
         database.update(request.user_id, 'connect_dialog', 'status_action')
         return message_return(response, user_storage, output_message)
 
