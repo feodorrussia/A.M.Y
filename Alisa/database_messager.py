@@ -17,7 +17,7 @@ class Settings(db.Model):
 
 class Friend(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user = db.Column(db.String(80), unique=True, nullable=False)
+    user = db.Column(db.String(80), unique=False, nullable=False)
     friend = db.Column(db.String(80), unique=False, nullable=False)
     nickname = db.Column(db.String(80), unique=False, nullable=False)
 

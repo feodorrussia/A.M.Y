@@ -67,7 +67,15 @@ def handle_dialog(request, response, user_storage, database):
     if input_message in hwc:
         # статистика
         output_message = 'Привет, я Эми, могу отправить твоё сообщение твоему другу, для этого, просто, скажи "Эми, напиши" и login или nickname твоего друга'
-        user_storage = {'suggests': ['Мои возможности', 'Команды быстрого ввода', 'Главная']}
+        user_storage = {'suggests': ['Главная']}
+        database.update(request.user_id, 'working', 'status_action')
+        tts = 'Привет! Я-Эми. Могу отправить твоё сообщение твоему другу. Для этого просто скажи-"Эми, напиши" и login или nickname твоего друга'
+        return message_return(response, user_storage, output_message, tts)
+
+    if input_message in stwc:
+        # статистика
+        output_message = 'Привет! Здесь ты можешь настроить '
+        user_storage = {'suggests': ['Главная']}
         database.update(request.user_id, 'working', 'status_action')
         tts = 'Привет! Я-Эми. Могу отправить твоё сообщение твоему другу. Для этого просто скажи-"Эми, напиши" и login или nickname твоего друга'
         return message_return(response, user_storage, output_message, tts)
