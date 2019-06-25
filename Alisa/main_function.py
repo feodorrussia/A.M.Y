@@ -106,6 +106,7 @@ def handle_dialog(request, response, user_storage, database):
             output_message = f'''Изменить кнопки а главной странице?'''
             user_storage = {'suggests': []}
             database.update(request.user_id, 'fpb_update', 'status_action')
+        return message_return(response, user_storage, output_message)
 
     if database.get_session(request.user_id, 'status_action')[0] == 'ar_update':
         user_name = database.get_session(request.user_id, 'user_name')[0]
@@ -116,12 +117,11 @@ def handle_dialog(request, response, user_storage, database):
             output_message = 'Готово!'
             user_storage = {'suggests': bc}
             database.update(request.user_id, 'working', 'status_action')
-            return message_return(response, user_storage, output_message)
         else:
             output_message = 'Хорошо, рада была помочь!'
             user_storage = {'suggests': bc}
             database.update(request.user_id, 'working', 'status_action')
-            return message_return(response, user_storage, output_message)
+        return message_return(response, user_storage, output_message)
 
     if database.get_session(request.user_id, 'status_action')[0] == 'voice_update':
         user_name = database.get_session(request.user_id, 'user_name')[0]
@@ -132,12 +132,11 @@ def handle_dialog(request, response, user_storage, database):
             output_message = 'Готово!'
             user_storage = {'suggests': bc}
             database.update(request.user_id, 'working', 'status_action')
-            return message_return(response, user_storage, output_message)
         else:
             output_message = 'Хорошо, рада была помочь!'
             user_storage = {'suggests': bc}
             database.update(request.user_id, 'working', 'status_action')
-            return message_return(response, user_storage, output_message)
+        return message_return(response, user_storage, output_message)
 
 
     if input_message in afwc:
