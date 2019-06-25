@@ -37,12 +37,12 @@ def handle_dialog(request, response, user_storage, database):
             database.update(request.user_id, 'working')
             return message_return(response, user_storage, 'Добро пожаловать!')
 
-    if database.get_session(request.user_id, 'status_action')[0] == 'login' or input_message in ['войти']:
+    if database.get_session(request.user_id, 'status_action')[0] == 'login' or input_message in enwc or request.is_new_session:
         user_storage = {"suggests": bop}
         return message_return(response, user_storage,
                               'Привет! Чтобы войти в систему напиши свой индивидуальный логин и пароль через пробел.')
 
-    if input_message in ewc or request.is_new_session:
+    if input_message in ewc:
         # статистика
         user_storage = {"suggests": bop}
         user_name = database.get_session(request.user_id, 'user_name')[0]
@@ -52,6 +52,11 @@ def handle_dialog(request, response, user_storage, database):
         database.update(request.user_id, 'login')
         return message_return(response, user_storage,
                               'Пока! До новых встреч;)', 'Пока! До новых встреч')
+    if input_message in cnclwc:
+        output_message = 'Хорошо, рада была помочь!'
+        user_storage = {'suggests': bc}
+        database.update(request.user_id, 'working', 'status_action')
+        return message_return(response, user_storage, output_message)
 
     if input_message in gfpwc:
         if database.get_session(request.user_id, 'status_action')[0] in osc:
@@ -155,10 +160,15 @@ def handle_dialog(request, response, user_storage, database):
         return message_return(response, user_storage, output_message)
 
     if database.get_session(request.user_id, 'status_action')[0] == 'end_adding':
-        output_message = 'Я готова, пиши сообщение!'
-        user_storage = {
-            'suggests': []}
-        database.update(request.user_id, 'sending_letter', 'status_action')
+        if input_message in ywc:
+            output_message = 'Я готова, пиши сообщение!'
+            user_storage = {
+                'suggests': []}
+            database.update(request.user_id, 'sending_letter', 'status_action')
+        else:
+            output_message = 'Хорошо, рада была помочь!'
+            user_storage = {'suggests': bc}
+            database.update(request.user_id, 'working', 'status_action')
         return message_return(response, user_storage, output_message)
 
     if database.get_session(request.user_id, 'status_action')[
@@ -289,11 +299,6 @@ def handle_dialog(request, response, user_storage, database):
         user_storage = {'suggests': cb}
         return message_return(response, user_storage, output_message)
 
-    if input_message=='отмена':
-        output_message = 'Хорошо, рада была помочь!'
-        user_storage = {'suggests': bc}
-        database.update(request.user_id, 'working', 'status_action')
-        return message_return(response, user_storage, output_message)
 
 
     '''user_storage = {'suggests': btc}
