@@ -45,7 +45,7 @@ def handle_dialog(request, response, user_storage, database):
     if database.get_session(request.user_id, 'status_action')[0] == 'login' or input_message in enwc or request.is_new_session:
         user_name = database.get_session(request.user_id, 'user_name')[0]
         user = User.query.filter_by(username=user_name).first()
-        if user:
+        if user and request.is_new_session:
             settings = Settings.query.filter_by(id=user.id).first()
             if settings.ar_uid == 0:
                 user_storage = {"suggests": bop}
