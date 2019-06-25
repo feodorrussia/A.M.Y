@@ -30,10 +30,4 @@ class Message(db.Model):
     status = db.Column(db.Integer)
 
 
-class Group(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120), unique=True, nullable=False)
-    users = db.Column(db.String(1000), unique=False, nullable=False)
-
-
 db.create_all()

@@ -13,6 +13,9 @@ def handle_dialog(request, response, user_storage, database):
         database.add_session(request.user_id)
         print(database.get_session(request.user_id))
 
+    if input_message in ['где я?' , 'где я', 'wai']:
+        return message_return(response, user_storage, database.get_session(request.user_id, 'status_action')[0])
+
     if database.get_session(request.user_id, 'status_action')[0] == 'login' and len(
             input_message.split()) == 2:
         user_name, password = request.command.split()
@@ -71,19 +74,69 @@ def handle_dialog(request, response, user_storage, database):
 
     if input_message in hwc:
         # статистика
-        output_message = 'Привет, я Эми, могу отправить твоё сообщение твоему другу, для этого, просто, скажи "Эми, напиши" и login или nickname твоего друга'
+        output_message = 'Привет, я Эми, могу отправить твоё сообщение твоему другу, для этого, просто, скажи "Эми, напиши" и login (или nickname) твоего друга'
         user_storage = {'suggests': ['Главная']}
         database.update(request.user_id, 'working', 'status_action')
-        tts = 'Привет! Я-Эми. Могу отправить твоё сообщение твоему другу. Для этого просто скажи-"Эми, напиши" и login или nickname твоего друга'
+        tts = 'Привет! Я-Эми. Могу отправить твоё сообщение твоему другу. Для этого просто скажи:"Эми, напиши" и login или nickname твоего друга'
         return message_return(response, user_storage, output_message, tts)
 
     if input_message in stwc:
         # статистика
-        output_message = 'Привет! Здесь ты можешь настроить '
-        user_storage = {'suggests': ['Главная']}
-        database.update(request.user_id, 'working', 'status_action')
-        tts = 'Привет! Я-Эми. Могу отправить твоё сообщение твоему другу. Для этого просто скажи-"Эми, напиши" и login или nickname твоего друга'
-        return message_return(response, user_storage, output_message, tts)
+        user_name = database.get_session(request.user_id, 'user_name')[0]
+        user = User.query.filter_by(username=user_name).first()
+        output_message = 'Привет! Здесь ты можешь включить или выключить автоматическую авторизацию при входе с того же устройства и озвучивание ответов, изменить кнопки на главной странице'
+        user_storage = {'suggests': [f'''Авторизация({"вкл" if user.ar_uid=='1' else "выкл"})''', f'''Звук({"вкл" if user.voice=='1' else "выкл"})''', 'Кнопки', 'Главная']}
+        database.update(request.user_id, 'settings_update', 'status_action')
+        return message_return(response, user_storage, output_message)
+
+    if database.get_session(request.user_id, 'status_action')[0] == 'settings_update':
+        user_name = database.get_session(request.user_id, 'user_name')[0]
+        user = User.query.filter_by(username=user_name).first()
+        if 'авторизация' in input_message:
+            output_message = f'''{"выкл" if user.ar_uid=='1' else "вкл"}ючить автоматическую авторизацию?'''
+            user_storage = {'suggests': []}
+            database.update(request.user_id, 'ar_update', 'status_action')
+        if 'звук' in input_message:
+            output_message = f'''{"выкл" if user.ar_uid=='1' else "вкл"}ючить звук?'''
+            user_storage = {'suggests': []}
+            database.update(request.user_id, 'voice_update', 'status_action')
+        if 'кнопки' in input_message:
+            output_message = f'''Изменить кнопки а главной странице?'''
+            user_storage = {'suggests': []}
+            database.update(request.user_id, 'fpb_update', 'status_action')
+
+    if database.get_session(request.user_id, 'status_action')[0] == 'ar_update':
+        user_name = database.get_session(request.user_id, 'user_name')[0]
+        user = User.query.filter_by(username=user_name).first()
+        settings = Settings.query.filter_by(id=user.id).first()
+        if input_message in ywc:
+            settings.ar_uid = abs(user.ar_uid-1)
+            output_message = 'Готово!'
+            user_storage = {'suggests': bc}
+            database.update(request.user_id, 'working', 'status_action')
+            return message_return(response, user_storage, output_message)
+        else:
+            output_message = 'Хорошо, рада была помочь!'
+            user_storage = {'suggests': bc}
+            database.update(request.user_id, 'working', 'status_action')
+            return message_return(response, user_storage, output_message)
+
+    if database.get_session(request.user_id, 'status_action')[0] == 'voice_update':
+        user_name = database.get_session(request.user_id, 'user_name')[0]
+        user = User.query.filter_by(username=user_name).first()
+        settings = Settings.query.filter_by(id=user.id).first()
+        if input_message in ywc:
+            settings.ar_uid = abs(user.voice-1)
+            output_message = 'Готово!'
+            user_storage = {'suggests': bc}
+            database.update(request.user_id, 'working', 'status_action')
+            return message_return(response, user_storage, output_message)
+        else:
+            output_message = 'Хорошо, рада была помочь!'
+            user_storage = {'suggests': bc}
+            database.update(request.user_id, 'working', 'status_action')
+            return message_return(response, user_storage, output_message)
+
 
     if input_message in afwc:
         # статистика
