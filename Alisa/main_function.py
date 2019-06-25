@@ -13,7 +13,7 @@ def handle_dialog(request, response, user_storage, database):
         database.add_session(request.user_id)
         print(database.get_session(request.user_id))
 
-    if input_message in ['где я?' , 'где я', 'wai']:
+    if input_message in ['где я?', 'где я', 'wai']:
         return message_return(response, user_storage, database.get_session(request.user_id, 'status_action')[0])
 
     if database.get_session(request.user_id, 'status_action')[0] == 'login' and len(
@@ -86,7 +86,7 @@ def handle_dialog(request, response, user_storage, database):
         user = User.query.filter_by(username=user_name).first()
         settings = Settings.query.filter_by(id=user.id).first()
         output_message = 'Привет! Здесь ты можешь включить или выключить автоматическую авторизацию при входе с того же устройства и озвучивание ответов, изменить кнопки на главной странице'
-        user_storage = {'suggests': [f'''Авторизация({"вкл" if settings.ar_uid=='1' else "выкл"})''', f'''Звук({"вкл" if settings.voice=='1' else "выкл"})''', 'Кнопки', 'Главная']}
+        user_storage = {'suggests': [f'''Авторизация({"вкл" if settings.ar_uid==1 else "выкл"})''', f'''Звук({"вкл" if settings.voice==1 else "выкл"})''', 'Кнопки', 'Главная']}
         database.update(request.user_id, 'settings_update', 'status_action')
         return message_return(response, user_storage, output_message)
 
@@ -95,11 +95,11 @@ def handle_dialog(request, response, user_storage, database):
         user = User.query.filter_by(username=user_name).first()
         settings = Settings.query.filter_by(id=user.id).first()
         if 'авторизация' in input_message:
-            output_message = f'''{"выкл" if settings.ar_uid=='1' else "вкл"}ючить автоматическую авторизацию?'''
+            output_message = f'''{"выкл" if settings.ar_uid==1 else "вкл"}ючить автоматическую авторизацию?'''
             user_storage = {'suggests': []}
             database.update(request.user_id, 'ar_update', 'status_action')
         if 'звук' in input_message:
-            output_message = f'''{"выкл" if settings.ar_uid=='1' else "вкл"}ючить звук?'''
+            output_message = f'''{"выкл" if settings.ar_uid==1 else "вкл"}ючить звук?'''
             user_storage = {'suggests': []}
             database.update(request.user_id, 'voice_update', 'status_action')
         if 'кнопки' in input_message:
