@@ -126,6 +126,9 @@ def handle_dialog(request, response, user_storage, database):
             output_message = f'''Изменить кнопки а главной странице?'''
             user_storage = {'suggests': []}
             database.update(request.user_id, 'fpb_update', 'status_action')
+        else:
+            return message_error(response, user_storage,
+                                 ['Прости, не поняла'])
         return message_return(response, user_storage, output_message)
 
     if database.get_session(request.user_id, 'status_action')[0] == 'ar_update':
