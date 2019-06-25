@@ -118,11 +118,11 @@ def handle_dialog(request, response, user_storage, database):
             output_message = f'''{"выкл" if settings.ar_uid==1 else "вкл"}ючить автоматическую авторизацию?'''
             user_storage = {'suggests': []}
             database.update(request.user_id, 'ar_update', 'status_action')
-        if 'звук' in input_message:
+        elif 'звук' in input_message:
             output_message = f'''{"выкл" if settings.ar_uid==1 else "вкл"}ючить звук?'''
             user_storage = {'suggests': []}
             database.update(request.user_id, 'voice_update', 'status_action')
-        if 'кнопки' in input_message:
+        elif 'кнопки' in input_message:
             output_message = f'''Изменить кнопки а главной странице?'''
             user_storage = {'suggests': []}
             database.update(request.user_id, 'fpb_update', 'status_action')
