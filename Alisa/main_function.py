@@ -119,7 +119,7 @@ def handle_dialog(request, response, user_storage, database):
             user_storage = {'suggests': []}
             database.update(request.user_id, 'ar_update', 'status_action')
         elif 'звук' in input_message:
-            output_message = f'''{"выкл" if settings.ar_uid==1 else "вкл"}ючить звук?'''
+            output_message = f'''{"выкл" if settings.voice==1 else "вкл"}ючить звук?'''
             user_storage = {'suggests': []}
             database.update(request.user_id, 'voice_update', 'status_action')
         elif 'кнопки' in input_message:
