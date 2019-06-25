@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d391d987-c652-49d3-8c33-1937400f2c05" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/database_messager.py" beforeDir="false" afterPath="$PROJECT_DIR$/database_messager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_function.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_function.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,8 +24,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main_function.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="11" column="46" selection-start-line="11" selection-start-column="46" selection-end-line="11" selection-end-column="46" />
+            <state relative-caret-position="493">
+              <caret line="130" column="26" selection-start-line="130" selection-start-column="26" selection-end-line="130" selection-end-column="26" />
               <folding>
                 <element signature="e#16#55#0" expanded="true" />
               </folding>
@@ -352,8 +351,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main_function.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="11" column="46" selection-start-line="11" selection-start-column="46" selection-end-line="11" selection-end-column="46" />
+        <state relative-caret-position="493">
+          <caret line="130" column="26" selection-start-line="130" selection-start-column="26" selection-end-line="130" selection-end-column="26" />
           <folding>
             <element signature="e#16#55#0" expanded="true" />
           </folding>
