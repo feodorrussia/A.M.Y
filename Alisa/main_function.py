@@ -114,7 +114,7 @@ def handle_dialog(request, response, user_storage, database):
         settings = Settings.query.filter_by(id=user.id).first()
         if input_message in ywc:
             settings.ar_uid = abs(settings.ar_uid-1)
-            db.commit()
+            db.session.commit()
             output_message = 'Готово!'
             user_storage = {'suggests': bc}
             database.update(request.user_id, 'working', 'status_action')
@@ -130,7 +130,7 @@ def handle_dialog(request, response, user_storage, database):
         settings = Settings.query.filter_by(id=user.id).first()
         if input_message in ywc:
             settings.voice = abs(settings.voice-1)
-            db.commit()
+            db.session.commit()
             output_message = 'Готово!'
             user_storage = {'suggests': bc}
             database.update(request.user_id, 'working', 'status_action')
