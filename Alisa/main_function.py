@@ -49,6 +49,11 @@ def handle_dialog(request, response, user_storage, database):
             settings = Settings.query.filter_by(id=user.id).first()
             if settings.ar_uid == 0:
                 user_storage = {"suggests": bop}
+                user_name = database.get_session(request.user_id, 'user_name')[0]
+                user = User.query.filter_by(username=user_name).first()
+                user.status = 0
+                db.session.commit()
+                database.update(request.user_id, 'login')
                 return message_return(response, user_storage,
                                       'Привет! Чтобы войти в систему напиши свой индивидуальный логин и пароль через пробел.')
             else:
